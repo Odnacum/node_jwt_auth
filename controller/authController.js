@@ -11,6 +11,7 @@ exports.test = (req, resp) => {
 function verifyToken(req, res, next) {
   // Get auth header value
   const bearerHeader = req.headers["authorization"];
+
   // Check if bearer is undefined
   if (typeof bearerHeader !== "undefined") {
     // Split at the space
@@ -27,12 +28,13 @@ function verifyToken(req, res, next) {
   }
 }
 exports.userPost = (req, res, verifyToken) => {
+  console.log(req.token);
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.sendStatus(403);
     } else {
       res.json({
-        message: "Post created...",
+        msg: "Sucesso",
         authData,
       });
     }
